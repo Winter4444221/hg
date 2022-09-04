@@ -1,0 +1,537 @@
+if game.PlaceId == 155615604 then
+    local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua%22))()
+    local Window = library.CreateLib("Police hub", "Ocean")
+    local Combat = Window:NewTab("Combat")
+    local Player = Window:NewTab("Player")
+    local Teleporting = Window:NewTab("Teleporting")
+    local Visuals = Window:NewTab("Visuals")
+    local Farming = Window:NewTab("Farming")
+    local PlacesSection = Teleporting:NewSection("Places")
+    local CombatSection = Combat:NewSection("Combat")
+    local GunsSection = Combat:NewSection("Weapons")
+    local ModSection = Combat:NewSection("Mod")
+    local PlayerSection = Player:NewSection("Movement")
+    local CharacerSection = Player:NewSection("Player")
+    local AutoSection = Farming:NewSection("Auto")
+    local ESPSection = Visuals:NewSection("ESP")
+    local World = Window:NewTab("World")
+    local TeamSection = World:NewSection("Teams")
+    local Credits = Window:NewTab("Credits")
+    local ChatSection = Player:NewSection("Chat")
+    local CreditsSection = Credits:NewSection("Credits")
+    local PlayerGameSection = Player:NewSection("Game")
+    getgenv().keycard = nil
+    getgenv().Tracers = nil
+    getgenv().godmode = nil
+    getgenv().teamColor = nil
+    getgenv().KillAura = nil
+    getgenv().Names = nil
+    getgenv().InfJump = nil
+    CharacerSection:NewSlider("Field Of View", "Changes your FOV", 120, 60, function(fov)
+        game.Workspace.Camera.FieldOfView = fov
+    end)
+    PlayerSection:NewSlider("Walk Speed", "Changes your walk speed", 500, 16, function(speed)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = speed
+    end)
+    PlayerSection:NewSlider("Jump Power", "Changes how high you jump", 500, 50, function(power)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = power
+    end)
+    GunsSection:NewButton("Give All Weapons", "Gives You All The Weapons", function()
+local A_1 = game:GetService("Workspace")["Prison_ITEMS"].giver["AK-47"].ITEMPICKUP
+        local Event = game:GetService("Workspace").Remote.ItemHandler
+        Event:InvokeServer(A_1)
+        local A_3 = game:GetService("Workspace")["Prison_ITEMS"].giver["Remington 870"].ITEMPICKUP
+        local Event = game:GetService("Workspace").Remote.ItemHandler
+        Event:InvokeServer(A_3)
+        local A_2 = game:GetService("Workspace")["Prison_ITEMS"].giver["M9"].ITEMPICKUP
+        local Event = game:GetService("Workspace").Remote.ItemHandler
+        Event:InvokeServer(A_2)
+    end)
+    GunsSection:NewButton("Give AK47", "Gives You The AK47", function()
+        local A_1 = game:GetService("Workspace")["Prison_ITEMS"].giver["AK-47"].ITEMPICKUP
+        local Event = game:GetService("Workspace").Remote.ItemHandler
+        Event:InvokeServer(A_1)
+    end)
+    GunsSection:NewButton("Give M9", "Gives You The M9 Pistol", function(click)
+        local A_1 = game:GetService("Workspace")["Prison_ITEMS"].giver["M9"].ITEMPICKUP
+        local Event = game:GetService("Workspace").Remote.ItemHandler
+        Event:InvokeServer(A_1)
+    end)
+    GunsSection:NewButton("Give Remington 870", "Gives You The Remington 870 Shotgun", function()
+        local A_1 = game:GetService("Workspace")["Prison_ITEMS"].giver["Remington 870"].ITEMPICKUP
+        local Event = game:GetService("Workspace").Remote.ItemHandler
+        Event:InvokeServer(A_1)
+    end)
+    PlayerGameSection:NewToggle("Infinite Jump", "Makes you be able to infinite jump", function(toggled)
+        if toggled then
+            getgenv().InfJump = true
+            while getgenv().InfJump == true do
+                game:GetService("UserInputService").JumpRequest:connect(function()
+                    if getgenv().InfJump == true then
+                        game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+end
+                end)
+                wait()
+            end
+        else
+            getgenv().InfJump = false
+        end
+    end)
+    ModSection:NewButton("Mod all guns", "Mods all the guns in your inventory", function()
+        game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+        local gun1 = require(game.Players.LocalPlayer.Backpack["AK-47"].GunStates)
+        gun1["MaxAmmo"] = 9999999
+        gun1["Spread"] = 0
+        gun1["Damage"] = 1000
+        gun1["CurrentAmmo"] = 9999999
+        gun1["StoredAmmo"] = 9999999
+        gun1["ReloadTime"] = 0.0000000001
+        gun1["AutoFire"] = true
+        game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+        local gun2 = require(game.Players.LocalPlayer.Backpack["Remington 870"].GunStates)
+        gun2["MaxAmmo"] = 9999999
+        gun2["Spread"] = 0
+        gun2["Damage"] = 1000
+        gun2["CurrentAmmo"] = 9999999
+        gun2["StoredAmmo"] = 9999999
+        gun2["ReloadTime"] = 0.0000000001
+        gun2["AutoFire"] = true
+        game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+        local gun3 = require(game.Players.LocalPlayer.Backpack["M9"].GunStates)
+        gun3["MaxAmmo"] = 9999999
+        gun3["Spread"] = 0
+        gun3["Damage"] = 1000
+        gun3["CurrentAmmo"] = 9999999
+        gun3["StoredAmmo"] = 9999999
+        gun3["ReloadTime"] = 0.0000000001
+        gun3["AutoFire"] = true
+    end)
+    ModSection:NewButton("Mod AK47", "Mods your AK47 (Does not work if you dont own the weapon", function()
+        game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+        local gun = require(game.Players.LocalPlayer.Backpack["AK-47"].GunStates)
+        gun["MaxAmmo"] = 9999999
+        gun["Spread"] = 0
+        gun["Damage"] = 1000
+        gun["CurrentAmmo"] = 9999999
+        gun["StoredAmmo"] = 9999999
+        gun["ReloadTime"] = 0.0000000001
+        gun["AutoFire"] = true
+    end)
+ModSection:NewButton("Mod Remington 870", "Mods your Remington 870 (Does not work if you dont own the weapon", function()
+        game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+        local gun = require(game.Players.LocalPlayer.Backpack["Remington 870"].GunStates)
+        gun["MaxAmmo"] = 9999999
+        gun["Spread"] = 0
+        gun["Damage"] = 1000
+        gun["CurrentAmmo"] = 9999999
+        gun["StoredAmmo"] = 9999999
+        gun["ReloadTime"] = 0.0000000001
+        gun["AutoFire"] = true
+    end)
+    ModSection:NewButton("Mod M9", "Mods your M9 (Does not work if you dont own the weapon", function()
+        game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+        local gun = require(game.Players.LocalPlayer.Backpack["M9"].GunStates)
+        gun["MaxAmmo"] = 9999999
+        gun["Spread"] = 0
+        gun["Damage"] = 1000
+        gun["CurrentAmmo"] = 9999999
+        gun["StoredAmmo"] = 9999999
+        gun["ReloadTime"] = 0.0000000001
+        gun["AutoFire"] = true
+    end)
+    PlacesSection:NewButton("Police Station", "Teleports you to the police station", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Prison_guardspawn.spawn.CFrame
+    end)
+    PlacesSection:NewButton("Prison", "Teleports you to the prison", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Prison_spawn.Nexus.SpawnLocation.CFrame
+    end)
+    PlacesSection:NewButton("Prison Yard", "Teleports you to the prison yard", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Prison_spawn.Courtyard.SpawnLocation.CFrame
+    end)
+    PlacesSection:NewButton("Criminal Base", "Teleports you to the criminal base", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["Criminals Spawn"].SpawnLocation.CFrame
+    end)
+AutoSection:NewToggle("Auto Grabs Keycard (If dropped)", "Gives you the keycard when its dropped", function(toggled)
+        if toggled then
+            getgenv().keycard = true
+            while getgenv().keycard == true do
+                if game:GetService("Workspace")["Prison_ITEMS"].single:FindFirstChild("Key card") then
+                    local A_1 = game:GetService("Workspace")["Prison_ITEMS"].single["Key card"].ITEMPICKUP
+                    local Event = game:GetService("Workspace").Remote.ItemHandler
+                    Event:InvokeServer(A_1)
+                else
+                    print("Did not find keycard")
+                end
+                wait(0.5)
+            end
+        else
+            getgenv().keycard = false
+        end
+    end)
+    ESPSection:NewToggle("Team Color", "Changes the esp color to the color of their team", function(toggled)
+        if toggled then
+            getgenv().teamColor = true
+        else
+            getgenv().teamColor = false
+        end
+    end)
+    ESPSection:NewToggle("Tracers", "Enables tracers", function(toggled)
+        if toggled then
+            getgenv().Tracers = true
+            spawn(function()
+                local lplr = game.Players.LocalPlayer
+                local camera = game:GetService("Workspace").CurrentCamera
+                local CurrentCamera = workspace.CurrentCamera
+                local worldToViewportPoint = CurrentCamera.worldToViewportPoint
+                for i,v in pairs(game.Players:GetChildren()) do
+                    local Tracer = Drawing.new("Line")
+                    Tracer.Visible = false
+                    Tracer.Thickness = 1
+                    if getgenv().teamColor == true then
+                        if v.Team == game.Teams.Guards then
+                            Tracer.Color = Color3.new(0, 0, 200)
+                        elseif v.Team == game.Teams.Inmates then
+Tracer.Color = Color3.fromRGB(255, 255, 0)
+                        elseif v.Team == game.Teams.Criminals then
+                            Tracer.Color = Color3.new(255, 0, 0)
+                        end
+                    else
+                        Tracer.Color = Color3.new(255,255,255)
+                    end
+                    Tracer.Transparency = 1
+                    function lineesp()
+                        game:GetService("RunService").RenderStepped:Connect(function()
+                            if getgenv().Tracers then
+                                if v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+                                    local Vector,OnScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
+                                    if OnScreen then
+                                        Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1.5)
+                                        Tracer.To = Vector2.new(Vector.X, Vector.Y)
+                                        Tracer.Visible = true
+                                    else
+                                        Tracer.Visible = false
+                                    end
+                                else
+                                    Tracer.Visible = false
+                                end
+                            else
+                                Tracer:Remove()
+                            end
+                        end)
+                    end
+                    coroutine.wrap(lineesp)()
+                end
+                while getgenv().Tracers == true and wait() do
+                    game.Players.PlayerAdded:Connect(function(v)
+                        if getgenv().Tracers then
+                            local Tracer = Drawing.new("Line")
+Tracer.Visible = false
+                            Tracer.Thickness = 1
+                            if getgenv().teamColor == true then
+                                if v.Team == game.Teams.Guards then
+                                    Tracer.Color = Color3.new(0, 0, 200)
+                                elseif v.Team == game.Teams.Inmates then
+                                    Tracer.Color = Color3.new(255, 255, 0)
+                                elseif v.Team == game.Teams.Criminals then
+                                    Tracer.Color = Color3.new(255, 0, 0)
+                                end
+                            else
+                                Tracer.Color = Color3.new(255,255,255)
+                            end
+                            Tracer.Transparency = 1
+                            function lineesp()
+                                game:GetService("RunService").RenderStepped:Connect(function()
+                                    if getgenv().Tracers then
+                                        if v ~= nil and v.Character ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+                                            local Vector,OnScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
+                                            if OnScreen then
+                                                Tracer.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1.5)
+                                                Tracer.To = Vector2.new(Vector.X, Vector.Y)
+                                                Tracer.Visible = true
+                                            else
+                                                Tracer.Visible = false
+                                            end
+                                        else
+Tracer.Visible = false
+                                        end
+                                    else
+                                        Tracer:Delete()
+                                    end
+                                end)
+                            end
+                            coroutine.wrap(lineesp)()
+                        end
+                    end)
+                end
+            end)
+        else
+            getgenv().Tracers = false
+        end
+    end)
+    TeamSection:NewDropdown("Team", "Changes your team to the team that you select", {"Prisoner", "Police", "Criminal", "Neutral"}, function(team)
+        if team == "Prisoner" then
+            game.Players.LocalPlayer.Team = game.Teams.Inmates
+            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+        elseif team == "Police" then
+            game.Players.LocalPlayer.Team = game.Teams.Guards
+            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+        elseif team == "Criminal" then
+            game.Players.LocalPlayer.Team = game.Teams.Criminal
+            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+        elseif team == "Neutral" then
+            game.Players.LocalPlayer.Team = game.Teams.Neutral
+            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+        end
+    end)
+    CombatSection:NewToggle("Kill Aura", "Kills all the players in your radius", function(toggled)
+        if toggled then
+            getgenv().KillAura = true
+            spawn(function()
+                while getgenv().KillAura == true do
+                    for i,v in pairs(game:GetService("Players"):GetChildren()) do
+                        if v.UserId == game.Players.LocalPlayer.UserId then
+                            print("among us")
+                        else
+                            game:GetService("ReplicatedStorage").meleeEvent:FireServer(v)
+end
+                    end
+                    wait()
+                end
+            end)
+        else
+            getgenv().KillAura = false
+        end
+    end)
+    ChatSection:NewToggle("Insults", "Insults literaly everyone", function(toggled)
+        if toggled then
+            getgenv().insults = true
+            while getgenv().insults == true do
+                local args = {
+                    [1] = "holy beaver guyz proson laif haxker!!!1!",
+                    [2] = "All"
+                }
+                local player = game.Players.LocalPlayer.Character
+                game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+                wait(2)
+            end
+        else
+            getgenv().insults = false
+        end
+    end)
+    CreditsSection:NewLabel("Made by AngryFox_YT#1257")
+end
+if game.PlaceId == 5977280685 then
+    local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua%22))()
+    local Window = library.CreateLib("Police hub", "Ocean")
+    local auto = Window:NewTab("Auto")
+    local Player = Window:NewTab("Player")
+    local World = Window:NewTab("World")
+    local autoFarmingSection = auto:NewSection("Farming")
+    local PlayerMovementSection = Player:NewSection("Player Movement")
+    local PlanetsSection = World:NewSection("Planets")
+    local Credits = Window:NewTab("Credits")
+    local CreditsSection = Credits:NewSection("Credits")
+    getgenv().swing = nil
+    getgenv().autoSellBalde = nil
+    autoFarmingSection:NewToggle("Auto swing", "Automaticly swings", function(toggled)
+        if toggled then
+            getgenv().swing = true
+            for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+            end
+            spawn(function() 
+while getgenv().swing == true do
+                    local A_1 = "swingBlade"
+                    local Event = game:GetService("Players")[game.Players.LocalPlayer.Name].saberEvent
+                    Event:FireServer(A1)
+                    wait()
+                end
+            end)
+        else
+            getgenv().swing = false
+        end
+    end)
+    autoFarmingSection:NewToggle("Auto sell", "Automaticly sells your swings for cash", function(toggled)
+        if toggled then
+            getgenv().autoSellBalde = true
+            spawn(function()
+                while getgenv().autoSellBalde == true do
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.sellTeleportPart
+                    wait()
+                end
+            end)
+        else
+            getgenv().autoSellBalde = false
+        end
+    end)
+    PlayerMovementSection:NewSlider("Walk speed", "Changes your walk speed", 500, 23, function(speed)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = speed
+    end)
+    PlayerMovementSection:NewSlider("Jump power", "Changes your jump power", 500, 80, function(power)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = power
+    end)
+    PlanetsSection:NewButton("Unlock all planets", "Unlocks all of the planets", function()
+        local oldcframe = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        for ,v in pairs(game:GetService("Workspace").planetOuters:GetChildren()) do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.centerPart.CFrame
+            wait(0.1)
+        end
+        wait(0.1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcframe
+    end)
+    PlanetsSection:NewDropdown("Teleport to planet", "Teleports you to the planet you want", {"Planet Zephyr", "Planet Inferno", "Planet Omega", "Planet Elemental", "Planet Chaos"}, function(planet)
+if planet == "Planet Zephyr" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.planetOuters["Planet Zephyr"].centerPart.CFrame
+        elseif planet == "Planet Inferno" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.planetOuters["Planet Inferno"].centerPart.CFrame
+        elseif planet == "Planet Omega" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.planetOuters["Planet Omega"].centerPart.CFrame
+        elseif planet == "Planet Elemental" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.planetOuters["Planet Elemental"].centerPart.CFrame
+        elseif planet == "Planet Chaos" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.planetOuters["Planet Chaos"].centerPart.CFrame
+        end
+    end)
+    CreditsSection:NewLabel("Made by AngryFox_YT#1257")
+end
+if game.PlaceId == 5490351219 then
+    local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua%22))()
+    local Window = library.CreateLib("DUB HUB", "Ocean")
+    local Farming = Window:NewTab("Farming")
+    local Worlds = Window:NewTab("Worlds")
+    local FarmingSection = Farming:NewSection("Farming")
+    local WorldsSection = Worlds:NewSection("Worlds")
+    local Credits = Window:NewTab("Credits")
+    local CreditsSection = Credits:NewSection("Credits")
+    getgenv().autoClick = nil
+    getgenv().autoRebirth = nil
+    FarmingSection:NewToggle("Auto Click", "Automaticly clicks", function(toggled)
+        if toggled then
+            getgenv().autoClick = true
+            spawn(function()
+                while getgenv().autoClick == true do
+                    local clickModule = require(game:GetService("Players").LocalPlayer.PlayerScripts.Aero.Controllers.UI.Click)
+clickModule:Click()
+                    wait()
+                end
+            end)
+        else
+            getgenv().autoClick = false
+        end
+    end)
+    FarmingSection:NewToggle("Auto Rebirth", "Automaticly buys rebirths", function(toggled)
+        if toggled then
+            getgenv().autoRebirth = true
+            spawn(function()
+                while getgenv().autoRebirth == true do
+                    local A_1 = 100
+                    local Event = game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.RebirthService.BuyRebirths
+                    Event:FireServer(A_1)
+                    wait()
+                end
+            end)
+        else
+            getgenv().autoRebirth = false
+        end
+    end)
+    FarmingSection:NewButton("Get any gamepass for free", "Click on any gamepass and get it for free", function()
+        local gamepassMod = require(game:GetService("ReplicatedStorage").Aero.Shared.Gamepasses)
+        gamepassMod.HasPassOtherwisePrompt = function() return true end
+    end)
+    WorldsSection:NewButton("Unlock all worlds", "Unlocks all the worlds for you", function()
+        local oldcframe = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        for i,v in pairs(game.Workspace.Worlds:GetChildren()) do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Teleport.CFrame
+            wait(0.1)
+        end
+        wait(0.1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcframe
+    end)
+    WorldsSection:NewDropdown("Teleport to world", "Teleports to the world you chose", {"Lava", "Desert", "Ocean", "Winter", "Toxic", "Candy", "Forest", "Storm", "Blocks", "Space", "Dominus", "Infinity", "Future", "City", "Moon", "Fire"}, function(world)
+        if world == "Lava" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Lava.Teleport.CFrame
+elseif world == "Desert" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Desert.Teleport.CFrame
+        elseif world == "Ocean" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Ocean.Teleport.CFrame
+        elseif world == "Winter" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Winter.Teleport.CFrame
+        elseif world == "Toxic" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Toxic.Teleport.CFrame
+        elseif world == "Candy" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Candy.Teleport.CFrame
+        elseif world == "Forest" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Forest.Teleport.CFrame
+        elseif world == "Storm" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Storm.Teleport.CFrame
+        elseif world == "Blocks" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Blocks.Teleport.CFrame
+        elseif world == "Space" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Space.Teleport.CFrame
+        elseif world == "Dominus" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Dominus.Teleport.CFrame
+        elseif world == "Infinity" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Infinity.Teleport.CFrame
+        elseif world == "City" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.City.Teleport.CFrame
+        elseif world == "Fire" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Fire.Teleport.CFrame
+        elseif world == "Moon" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Moon.Teleport.CFrame
+        elseif world == "Future" then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Worlds.Future.Teleport.CFrame
+        end
+    end)
+    CreditsSection:NewLabel("Made by AngryFox_YT#1257")
+end
+if game.PlaceId == 2788229376 then
+    local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua%22))()
+    local Window = library.CreateLib("Police hub", "Ocean")
+    local Combat = Window:NewTab("Combat")
+    local CombatSection = Combat:NewSection("Combat")
+    local Player = Window:NewTab("Player")
+    local MovementSection = Player:NewSection("Player Movement")
+    local Credits = Window:NewTab("Credits")
+    local CreditsSection = Credits:NewSection("Credits")
+    CreditsSection:NewLabel("Made by AngryFox_YT#1257")
+end
+if game.PlaceId == 537413528 then
+    local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua%22))()
+    local Window = library.CreateLib("Police hub", "Ocean")
+    local Player = Window:NewTab("Player")
+    local CharacterSection = Player:NewSection("Character")
+    local Utilities = Window:NewTab("Utilities")
+    local PlayerSection = Utilities:NewSection("Player")
+    local Credits = Window:NewTab("Credits")
+    local CreditsSection = Credits:NewSection("Credits")
+    local PlayerGameSection = Player:NewSection("Game")
+    getgenv().InfJump = false
+    CreditsSection:NewLabel("Made by AngryFox_YT#1257")
+    CharacterSection:NewSlider("Walk Speed", "Changes your walk speed", 500, 16, function(speed)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = speed
+    end) 
+CharacterSection:NewSlider("Jump Power", "Changes your jump power", 500, 50, function(power)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = power
+    end)
+    CharacterSection:NewSlider("Field Of View", "Changes your FOV", 120, 60, function(fov)
+        game.Workspace.Camera.FieldOfView = fov
+    end)
+    PlayerSection:NewToggle("No water damage", "You know what this does", function(toggled)
+
+    end)
+    PlayerGameSection:NewToggle("Infinite Jump", "Makes you be able to jump on air", function(toggled)
+        if toggled then
+            getgenv().InfJump = true
+            while getgenv().InfJump == true do
+                game:GetService("UserInputService").JumpRequest:connect(function()
+                    if getgenv().InfJump == true then
+                        game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+                    end
+                end)
+                wait()
+            end
+        else
+            getgenv().InfJump = false
+        end
+    end)
+end
